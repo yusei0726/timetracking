@@ -1,4 +1,4 @@
-module changeme
+module github.com/yusei0726/timetracking
 
 go 1.21
 
