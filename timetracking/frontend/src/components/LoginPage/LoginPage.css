@@ -12,7 +12,7 @@
     color: #fff;
 }
 
-.login-logo {
+.logo {
     width: 120px; /* ロゴの幅を指定 */
     height: auto; /* 高さを自動調整してアスペクト比を維持 */
     margin-bottom: 30px;
@@ -32,31 +32,13 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
-.button-container {
-    display: flex;
-    width: 100%;
-    margin-top: 20px;
-    gap: 10px; /* ボタン間のスペース */
-}
-
-.button-container button {
-    flex: 1; /* ボタンに均等な幅を与える */
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-
 .login-form .btn-login {
     width: 50%; /* ログインボタンの幅 */
     padding: 12px;
     border: none;
     border-radius: 20px;
     margin-bottom: 10px; /* ボタン間の余白 */
-    background-color: #3a506b;
+    background-color: #CC7400;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -67,7 +49,8 @@
     padding: 12px;
     border: none;
     border-radius: 20px;
-    background-color: #5bc0be;
+    margin-bottom: 10px;
+    background-color: #2E425C;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;

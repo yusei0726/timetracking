@@ -19,7 +19,7 @@ const SignUpPage: React.FC = () => {
 
     return (
         <div className="signUp-container">
-            <img src={logo} alt="Logo" className="login-logo"/>
+            <img src={logo} alt="Logo" className="logo"/>
             <form onSubmit={handleSignUp} className="signUp-form">
                 <input
                     type="firstName"

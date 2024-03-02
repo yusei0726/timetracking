@@ -1,0 +1,90 @@
+.timeTrackingPage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* より洗練されたフォント */
+    justify-content: center;
+    max-width: 400px;
+    margin: 100px auto auto;
+    padding: 20px;
+    background-color: rgba(27, 38, 54, 1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.logo {
+    width: 120px; /* ロゴの幅を指定 */
+    height: auto; /* 高さを自動調整してアスペクト比を維持 */
+}
+
+.working-hours {
+    margin-bottom: 30px;
+    font-size: 40px; /* サイズを大きく */
+    color: #eae9e9;
+}
+
+
+.working-hours-title {
+    margin-bottom: 10px;
+    font-size: 15px; /* サイズを大きく */
+    color: #eae9e9;
+}
+
+.clock-buttons {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.break-buttons {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.break-buttons button {
+    width: 50%; /* ログインボタンの幅 */
+    padding: 12px;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 10px; /* ボタン間の余白 */
+    background-color: #CC7400;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clock-buttons button {
+    width: 50%; /* ログインボタンの幅 */
+    padding: 12px;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 10px; /* ボタン間の余白 */
+    background-color: #2E425C;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+ button {
+    /* 既存のスタイルに加えて */
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* 変化を滑らかに */
+}
+
+button:hover {
+    box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.2); /* 内側の影を少し減らす */
+    transform: translateY(1px); /* ホバー時の移動を控えめに */
+}
+
+button:active {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3); /* クリック時の影をさらに減らす */
+    transform: translateY(1px); /* クリック時の移動も控えめに */
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

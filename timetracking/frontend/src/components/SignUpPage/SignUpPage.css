@@ -12,7 +12,7 @@
     color: #fff;
 }
 
-.login-logo {
+.logo {
     width: 120px; /* ロゴの幅を指定 */
     height: auto; /* 高さを自動調整してアスペクト比を維持 */
     margin-bottom: 30px;
@@ -37,7 +37,7 @@
     padding: 12px;
     border: none;
     border-radius: 20px;
-    background-color: #5bc0be;
+    background-color: #CC7400;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;

@@ -17,7 +17,7 @@ const LoginPage: React.FC = () => {
 
     return (
         <div className="login-container">
-            <img src={logo} alt="Logo" className="login-logo" />
+            <img src={logo} alt="Logo" className="logo"/>
             <form onSubmit={handleLogin} className="login-form">
                 <input
                     type="email"
@@ -38,6 +38,7 @@ const LoginPage: React.FC = () => {
                 <button type="submit" className="btn-login">Login</button>
             </form>
             <button onClick={() => navigate('/signup')} className="btn-signup">Sign Up</button>
+            <button onClick={() => navigate('/timetracking')} className="btn-signup">Time Tracking</button>
         </div>
     );
 };
