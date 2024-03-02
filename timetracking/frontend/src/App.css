@@ -57,3 +57,28 @@
     border: none;
     background-color: rgba(255, 255, 255, 1);
 }
+
+#captureButton {
+    padding: 10px 20px;
+    border: none;
+    background-color: #343a40;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 20px;
+    transition: all 0.2s ease; /* 遷移効果を少し早めに */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 通常時の影を少し大きめに */
+}
+
+#captureButton:hover {
+    background-color: #495057;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* ホバー時に影を少し大きく */
+    transform: scale(1.05); /* ホバー時に少し大きく */
+}
+
+#captureButton:active {
+    background-color: #212529;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* クリック時に影を小さくして凹んでいるように見せる */
+    transform: scale(0.98); /* クリック時に少し縮小 */
+}
