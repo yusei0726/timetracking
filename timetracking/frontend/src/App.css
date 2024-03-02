@@ -3,82 +3,8 @@
     text-align: center;
 }
 
-#logo {
-    display: block;
-    width: 50%;
-    height: 50%;
-    margin: auto;
-    padding: 10% 0 0;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-origin: content-box;
-}
-
 .result {
     height: 20px;
     line-height: 20px;
     margin: 1.5rem auto;
-}
-
-.input-box .btn {
-    width: 60px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 3px;
-    border: none;
-    margin: 0 0 0 20px;
-    padding: 0 8px;
-    cursor: pointer;
-}
-
-.input-box .btn:hover {
-    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-    color: #333333;
-}
-
-.input-box .input {
-    border: none;
-    border-radius: 3px;
-    outline: none;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 10px;
-    background-color: rgba(240, 240, 240, 1);
-    -webkit-font-smoothing: antialiased;
-}
-
-.input-box .input:hover {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.input-box .input:focus {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
-}
-
-#captureButton {
-    padding: 10px 20px;
-    border: none;
-    background-color: #343a40;
-    color: #ffffff;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    border-radius: 20px;
-    transition: all 0.2s ease; /* 遷移効果を少し早めに */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 通常時の影を少し大きめに */
-}
-
-#captureButton:hover {
-    background-color: #495057;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* ホバー時に影を少し大きく */
-    transform: scale(1.05); /* ホバー時に少し大きく */
-}
-
-#captureButton:active {
-    background-color: #212529;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* クリック時に影を小さくして凹んでいるように見せる */
-    transform: scale(0.98); /* クリック時に少し縮小 */
 }

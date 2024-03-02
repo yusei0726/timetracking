@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css'; // CSSファイルのインポート
-import logo from '../../assets/images/logo-universal.png'; // ロゴ画像のインポート
+import logo from '../../assets/images/logo-universal.png';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
