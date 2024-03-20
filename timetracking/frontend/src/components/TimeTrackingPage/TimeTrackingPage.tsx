@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './TimeTrackingPage.css';
 import logo from '../../assets/images/logo-universal.png';
+import { useIsLoggedIn } from '../common/CheckCurrentUser';
+import {useNavigate} from "react-router-dom";
 
 const TimeTrackingPage: React.FC = () => {
     const [isWorking, setIsWorking] = useState(false);
@@ -8,8 +10,14 @@ const TimeTrackingPage: React.FC = () => {
     const [startTime, setStartTime] = useState<number | null>(null);
     const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
     const [workingSeconds, setWorkingSeconds] = useState(0);
+    const isLoggedIn = useIsLoggedIn();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (isLoggedIn === false) {
+            navigate('/');
+        }
+
         const interval = setInterval(() => {
             if (isWorking && !isOnBreak && startTime) {
                 const current = new Date().getTime();
