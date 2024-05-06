@@ -91,7 +91,6 @@ const TimeTrackingPage: React.FC = () => {
             const data = await response.json();
             console.log(data); // レスポンスの内容をログに出力
             setIsWorking(false);
-            setIsOnBreak(false);
         } catch (error) {
             console.error('Error posting attendance:', error);
         }
@@ -170,8 +169,8 @@ const TimeTrackingPage: React.FC = () => {
             </div>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
             <div className="clock-buttons">
-                <button onClick={handleClockIn} disabled={isWorking}>Clock In</button>
-                <button onClick={handleClockOut} disabled={!isWorking}>Clock Out</button>
+                <button onClick={handleClockIn} disabled={isWorking || isOnBreak}>Clock In</button>
+                <button onClick={handleClockOut} disabled={!isWorking || isOnBreak}>Clock Out</button>
             </div>
             <div className="break-buttons">
                 <button onClick={handleBreakStart} disabled={!isWorking || isOnBreak}>Start Break</button>
