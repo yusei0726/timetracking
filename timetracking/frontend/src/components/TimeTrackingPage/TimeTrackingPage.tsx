@@ -11,6 +11,7 @@ const TimeTrackingPage: React.FC = () => {
     const [startTime, setStartTime] = useState<number | null>(null);
     const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
     const [workingSeconds, setWorkingSeconds] = useState(0);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const isLoggedIn = useIsLoggedIn();
     const navigate = useNavigate();
     const userId : string | null = useUserId();
@@ -51,13 +52,21 @@ const TimeTrackingPage: React.FC = () => {
                 })
             });
 
-            const data = await response.json();
-            console.log(data);
-            setIsWorking(true);
-            setStartTime(Date.now());
-            setBreakStartTime(null);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                setIsWorking(true);
+                setStartTime(Date.now());
+                setBreakStartTime(null);
+                setErrorMessage(null);
+            } else if (response.status === 409) {
+                setErrorMessage('you\'re already clock in.');
+            } else {
+                setErrorMessage('Failed to clock in. Please try again.');
+            }
         } catch (error) {
             console.error('Error posting attendance:', error);
+            setErrorMessage('Failed to clock in. Please try again.');
         }
     };
 
@@ -83,9 +92,6 @@ const TimeTrackingPage: React.FC = () => {
             console.log(data); // レスポンスの内容をログに出力
             setIsWorking(false);
             setIsOnBreak(false);
-            setStartTime(null);
-            setBreakStartTime(null);
-            setWorkingSeconds(0);
         } catch (error) {
             console.error('Error posting attendance:', error);
         }
@@ -118,6 +124,7 @@ const TimeTrackingPage: React.FC = () => {
             <div className="working-hours">
                 {formatTime(workingSeconds)}
             </div>
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
             <div className="clock-buttons">
                 <button onClick={handleClockIn} disabled={isWorking}>Clock In</button>
                 <button onClick={handleClockOut} disabled={!isWorking}>Clock Out</button>
