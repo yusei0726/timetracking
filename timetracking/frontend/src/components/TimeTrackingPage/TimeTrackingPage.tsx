@@ -60,7 +60,7 @@ const TimeTrackingPage: React.FC = () => {
                 setBreakStartTime(null);
                 setErrorMessage(null);
             } else if (response.status === 409) {
-                setErrorMessage('you\'re already clock in.');
+                setErrorMessage('you\'ve already working today.');
             } else {
                 setErrorMessage('Failed to clock in. Please try again.');
             }
@@ -97,14 +97,58 @@ const TimeTrackingPage: React.FC = () => {
         }
     };
 
-    const handleBreakStart = () => {
-        setIsOnBreak(true);
-        setBreakStartTime(Date.now());
+    const handleBreakStart = async () => {
+        const currentTime = new Date().toISOString();
+
+        if (!userId) {
+            navigate('/');
+        }
+        try {
+            const response = await fetch('http://localhost:8080/breaks/start', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    break_start: currentTime
+                })
+            });
+
+            const data = await response.json();
+            console.log(data); // レスポンスの内容をログに出力
+            setIsOnBreak(true);
+            setBreakStartTime(Date.now());
+        } catch (error) {
+            console.error('Error posting attendance:', error);
+        }
     };
 
-    const handleBreakEnd = () => {
-        setIsOnBreak(false);
-        setBreakStartTime(null);
+    const handleBreakEnd = async () => {
+        const currentTime = new Date().toISOString();
+
+        if (!userId) {
+            navigate('/');
+        }
+        try {
+            const response = await fetch('http://localhost:8080/breaks/end', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    break_end: currentTime
+                })
+            });
+
+            const data = await response.json();
+            console.log(data); // レスポンスの内容をログに出力
+            setIsOnBreak(false);
+            setBreakStartTime(null);
+        } catch (error) {
+            console.error('Error posting attendance:', error);
+        }
     };
 
     const formatTime = (totalSeconds: number) => {
