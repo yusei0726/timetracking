@@ -35,38 +35,60 @@ const TimeTrackingPage: React.FC = () => {
     }, [isWorking, isOnBreak, startTime, breakStartTime]);
 
     const handleClockIn = async () => {
-        setIsWorking(true);
         const currentTime = new Date().toISOString();
-        setStartTime(Date.now());
-        setBreakStartTime(null);
+        if (!userId) {
+            navigate('/');
+        }
+        try {
+            const response = await fetch('http://localhost:8080/attendances/start', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    time_in: currentTime
+                })
+            });
 
-        if (userId) {
-            try {
-                const response = await fetch('http://localhost:8080/attendances/start', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        user_id: userId,
-                        time_in: currentTime
-                    })
-                });
-
-                const data = await response.json();
-                console.log(data); // レスポンスの内容をログに出力
-            } catch (error) {
-                console.error('Error posting attendance:', error);
-            }
+            const data = await response.json();
+            console.log(data);
+            setIsWorking(true);
+            setStartTime(Date.now());
+            setBreakStartTime(null);
+        } catch (error) {
+            console.error('Error posting attendance:', error);
         }
     };
 
-    const handleClockOut = () => {
-        setIsWorking(false);
-        setIsOnBreak(false);
-        setStartTime(null);
-        setBreakStartTime(null);
-        setWorkingSeconds(0);
+    const handleClockOut = async () => {
+        const currentTime = new Date().toISOString();
+
+        if (!userId) {
+            navigate('/');
+        }
+        try {
+            const response = await fetch('http://localhost:8080/attendances/end', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    time_out: currentTime
+                })
+            });
+
+            const data = await response.json();
+            console.log(data); // レスポンスの内容をログに出力
+            setIsWorking(false);
+            setIsOnBreak(false);
+            setStartTime(null);
+            setBreakStartTime(null);
+            setWorkingSeconds(0);
+        } catch (error) {
+            console.error('Error posting attendance:', error);
+        }
     };
 
     const handleBreakStart = () => {
