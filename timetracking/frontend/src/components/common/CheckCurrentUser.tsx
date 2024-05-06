@@ -19,3 +19,24 @@ export const useIsLoggedIn = () => {
 
     return isLoggedIn;
 };
+
+export const useUserId = () => {
+    const [userId, setUserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchUserId = async () => {
+            try {
+                const { userId } = await getCurrentUser();
+                setUserId(userId);
+                console.log(`The userId: ${userId}`);
+            } catch (err) {
+                console.log(err);
+                setUserId(null);
+            }
+        };
+
+        fetchUserId();
+    }, []);
+
+    return userId;
+};

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './TimeTrackingPage.css';
 import logo from '../../assets/images/logo-universal.png';
 import { useIsLoggedIn } from '../common/CheckCurrentUser';
+import { useUserId } from '../common/CheckCurrentUser';
 import {useNavigate} from "react-router-dom";
 
 const TimeTrackingPage: React.FC = () => {
@@ -12,6 +13,7 @@ const TimeTrackingPage: React.FC = () => {
     const [workingSeconds, setWorkingSeconds] = useState(0);
     const isLoggedIn = useIsLoggedIn();
     const navigate = useNavigate();
+    const userId : string | null = useUserId();
 
     useEffect(() => {
         if (isLoggedIn === false) {
@@ -32,10 +34,31 @@ const TimeTrackingPage: React.FC = () => {
         return () => clearInterval(interval);
     }, [isWorking, isOnBreak, startTime, breakStartTime]);
 
-    const handleClockIn = () => {
+    const handleClockIn = async () => {
         setIsWorking(true);
+        const currentTime = new Date().toISOString();
         setStartTime(Date.now());
         setBreakStartTime(null);
+
+        if (userId) {
+            try {
+                const response = await fetch('http://localhost:8080/attendances/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        time_in: currentTime
+                    })
+                });
+
+                const data = await response.json();
+                console.log(data); // レスポンスの内容をログに出力
+            } catch (error) {
+                console.error('Error posting attendance:', error);
+            }
+        }
     };
 
     const handleClockOut = () => {
