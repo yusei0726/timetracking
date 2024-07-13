@@ -3,7 +3,7 @@ import './TimeTrackingPage.css';
 import logo from '../../assets/images/logo-universal.png';
 import { useIsLoggedIn } from '../common/CheckCurrentUser';
 import { useUserId } from '../common/CheckCurrentUser';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TimeTrackingPage: React.FC = () => {
     const [isWorking, setIsWorking] = useState(false);
@@ -11,10 +11,11 @@ const TimeTrackingPage: React.FC = () => {
     const [startTime, setStartTime] = useState<number | null>(null);
     const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
     const [workingSeconds, setWorkingSeconds] = useState(0);
+    const [breakSeconds, setBreakSeconds] = useState(0);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const isLoggedIn = useIsLoggedIn();
     const navigate = useNavigate();
-    const userId : string | null = useUserId();
+    const userId: string | null = useUserId();
 
     useEffect(() => {
         if (isLoggedIn === false) {
@@ -24,16 +25,13 @@ const TimeTrackingPage: React.FC = () => {
         const interval = setInterval(() => {
             if (isWorking && !isOnBreak && startTime) {
                 const current = new Date().getTime();
-                let newWorkingSeconds = Math.floor((current - startTime) / 1000);
-                if (isOnBreak && breakStartTime) {
-                    newWorkingSeconds -= Math.floor((current - breakStartTime) / 1000);
-                }
+                let newWorkingSeconds = Math.floor((current - startTime) / 1000) - breakSeconds;
                 setWorkingSeconds(newWorkingSeconds);
             }
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [isWorking, isOnBreak, startTime, breakStartTime]);
+    }, [isWorking, isOnBreak, startTime, breakSeconds]);
 
     const handleClockIn = async () => {
         const currentTime = new Date().toISOString();
@@ -58,6 +56,7 @@ const TimeTrackingPage: React.FC = () => {
                 setIsWorking(true);
                 setStartTime(Date.now());
                 setBreakStartTime(null);
+                setBreakSeconds(0);
                 setErrorMessage(null);
             } else if (response.status === 409) {
                 setErrorMessage('you\'ve already working today.');
@@ -144,6 +143,11 @@ const TimeTrackingPage: React.FC = () => {
             const data = await response.json();
             console.log(data); // レスポンスの内容をログに出力
             setIsOnBreak(false);
+            if (breakStartTime) {
+                const breakEndTime = Date.now();
+                const newBreakSeconds = Math.floor((breakEndTime - breakStartTime) / 1000);
+                setBreakSeconds(breakSeconds + newBreakSeconds);
+            }
             setBreakStartTime(null);
         } catch (error) {
             console.error('Error posting attendance:', error);
@@ -162,7 +166,7 @@ const TimeTrackingPage: React.FC = () => {
 
     return (
         <div className="timeTrackingPage-container">
-            <img src={logo} alt="Logo" className="logo"/>
+            <img src={logo} alt="Logo" className="logo" />
             <div className="working-hours-title">Working Hours</div>
             <div className="working-hours">
                 {formatTime(workingSeconds)}
